@@ -4,15 +4,29 @@ using System.Collections;
 public class GameMaster : MonoBehaviour
 {
     public static GameMaster gm;
+    public Transform[] planetPrefabs;
     public Transform playerPrefab;
     public Transform homePlanet;
     public Transform explosionEffect;
-    public float respawnTime;
+    public float respawnTime = 3;
+    public float numPlanets = 8;
 
     // Use this for initialization
     void Start () {
         if (gm == null) {
             gm = GameObject.Find("GM").GetComponent<GameMaster>();
+        }
+        SpawnPlanets();
+    }
+    
+    public void SpawnPlanets() {
+        int type;        
+        Vector3 pos;
+        
+        for (int i = 0; i < numPlanets; i++) {
+            type = Random.Range(0, planetPrefabs.Length);
+            pos = new Vector3 (Random.Range(-20000, 20000), Random.Range(-20000, 20000), 0);
+            Instantiate(planetPrefabs[type], pos, Quaternion.identity);
         }
     }
     
@@ -20,7 +34,7 @@ public class GameMaster : MonoBehaviour
 		yield return new WaitForSeconds (respawnTime);
         
         float spawnOffset = homePlanet.GetComponent<CircleCollider2D>().radius;
-		Instantiate (playerPrefab, homePlanet.position + new Vector3(0, spawnOffset + 2, 0), Quaternion.identity);
+		Instantiate (playerPrefab, homePlanet.position + new Vector3(0, spawnOffset + 1, 0), Quaternion.identity);
 	}
     
     public static void KillPlayer (GameObject player) {

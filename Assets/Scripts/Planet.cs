@@ -3,15 +3,15 @@ using UnityEngine.UI;
 
 public class Planet : MonoBehaviour {
     
-    public Transform star;
-    public Transform ship;
-    public Rigidbody2D shipRB;
     public Text distanceMeter;
     public RectTransform compas;
     
     public float atmosphere;
     public float orbitSpeed;
     
+    private Transform star;
+    private Transform ship;
+    private Rigidbody2D shipRB;
     private float radius;
     private float gravity;
     private float distance;
@@ -22,6 +22,11 @@ public class Planet : MonoBehaviour {
     void Start () {
         radius = GetComponent<CircleCollider2D>().radius;
         gravity = radius * 30;
+        
+        star = GameObject.FindGameObjectWithTag("Star").transform;
+        ship = GameObject.FindGameObjectWithTag("Player").transform;
+        shipRB = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>();
+        
         // Debug.Log(gameObject.transform.name + " | Radius: " + radius + " | Gravity: " + gravity);
     }
     
@@ -34,10 +39,13 @@ public class Planet : MonoBehaviour {
             Vector2 direction = (ship.transform.position - transform.position);
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg + 90;
             
-            compas.Rotate(new Vector3(0, 0, angle));
-            compas.rotation = Quaternion.Euler(0, 0, angle);
-            
-            distanceMeter.text = (gameObject.transform.name + ": " + Mathf.Round(distance) + " space bits");
+            // Compas stuff
+            if (compas != null) {
+                compas.Rotate(new Vector3(0, 0, angle));
+                compas.rotation = Quaternion.Euler(0, 0, angle);
+            }
+            if (distanceMeter != null)
+                distanceMeter.text = (gameObject.transform.name + ": " + Mathf.Round(distance) + " space bits");
         }
     }
     
@@ -58,7 +66,7 @@ public class Planet : MonoBehaviour {
             if ((distance - radius) <= atmosphere) {
                 // Follow planet's orbit around sun
                 if (star != null && ship != null)
-                    ship.RotateAround(star.position, Vector3.back, orbitSpeed / 100 * Time.deltaTime);
+                    ship.RotateAround(star.position, Vector3.back, orbitSpeed / 100 * Time.fixedDeltaTime);
                 
                 // Camera zoom
                 Camera.main.orthographicSize = Mathf.Lerp(Camera.main.orthographicSize, zoomFactor, Time.fixedDeltaTime);

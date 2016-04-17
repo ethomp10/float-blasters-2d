@@ -5,14 +5,13 @@ public class ShipControl : MonoBehaviour {
     public uint shipThrust;
     public uint rotationSpeed;
 
-    private Rigidbody2D playerShip;
     public static float xPos;
     public static float yPos;
     public static float velocity;
 
-    private Vector3 lastPosition;
+    private Rigidbody2D playerShip;
+    private Animator anim;
 
-    Animator anim;
 
     // Use this for initialization
     void Start () {
