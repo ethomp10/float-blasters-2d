@@ -46,7 +46,7 @@ public class Nyan : MonoBehaviour {
                 
         // Orbit around sun
             if (star != null)
-                transform.RotateAround(star.position, Vector3.forward, orbitSpeed / 100 * Time.fixedDeltaTime);
+                transform.RotateAround(star.position, Vector3.back, orbitSpeed / 100 * Time.fixedDeltaTime);
         }
     }
 }

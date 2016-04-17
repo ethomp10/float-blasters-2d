@@ -58,7 +58,7 @@ public class Planet : MonoBehaviour {
             if ((distance - radius) <= atmosphere) {
                 // Follow planet's orbit around sun
                 if (star != null && ship != null)
-                    ship.RotateAround(star.position, Vector3.forward, orbitSpeed / 100 * Time.deltaTime);
+                    ship.RotateAround(star.position, Vector3.back, orbitSpeed / 100 * Time.deltaTime);
                 
                 // Camera zoom
                 Camera.main.orthographicSize = Mathf.Lerp(Camera.main.orthographicSize, zoomFactor, Time.fixedDeltaTime);
@@ -69,7 +69,7 @@ public class Planet : MonoBehaviour {
         
         // Orbit around sun
         if (star != null)
-            transform.RotateAround(star.position, Vector3.forward, orbitSpeed / 100 * Time.fixedDeltaTime);
+            transform.RotateAround(star.position, Vector3.back, orbitSpeed / 100 * Time.fixedDeltaTime);
     }
     
     void OnCollisionEnter2D (Collision2D spaceship) {
