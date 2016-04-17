@@ -24,8 +24,8 @@ public class Planet : MonoBehaviour {
         gravity = radius * 30;
         
         star = GameObject.FindGameObjectWithTag("Star").transform;
-        ship = GameObject.FindGameObjectWithTag("Player").transform;
-        shipRB = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>();
+        // ship = GameObject.FindGameObjectWithTag("Player").transform;
+        // shipRB = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>();
         
         // Debug.Log(gameObject.transform.name + " | Radius: " + radius + " | Gravity: " + gravity);
     }

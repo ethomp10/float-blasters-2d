@@ -17,8 +17,8 @@ public class Sun : MonoBehaviour {
         radius = GetComponent<CircleCollider2D>().radius;
         gravity = radius * 100;
         
-        ship = GameObject.FindGameObjectWithTag("Player").transform;
-        shipRB = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>();
+        // ship = GameObject.FindGameObjectWithTag("Player").transform;
+        // shipRB = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>();
     }
     
 	void FixedUpdate () {
