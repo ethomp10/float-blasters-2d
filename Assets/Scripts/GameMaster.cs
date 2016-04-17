@@ -51,14 +51,14 @@ public class GameMaster : MonoBehaviour
     public void SpawnPlayer () {
         float spawnOffset = homePlanet.GetComponent<CircleCollider2D>().radius;
         Debug.Log("Spawn");
-		Instantiate (playerPrefab, homePlanet.position + new Vector3(0, spawnOffset + 1, 0), Quaternion.identity);
+		Instantiate (playerPrefab, homePlanet.position + new Vector3(0, spawnOffset + 5, 0), Quaternion.identity);
 	}
     
 	public IEnumerator RespawnPlayer () {
 		yield return new WaitForSeconds (respawnTime);
         
         float spawnOffset = homePlanet.GetComponent<CircleCollider2D>().radius;
-		Instantiate (playerPrefab, homePlanet.position + new Vector3(0, spawnOffset + 1, 0), Quaternion.identity);
+		Instantiate (playerPrefab, homePlanet.position + new Vector3(0, spawnOffset + 5, 0), Quaternion.identity);
 	}
     
     public static void KillPlayer (GameObject player) {
