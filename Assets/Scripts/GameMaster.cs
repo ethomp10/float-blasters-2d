@@ -12,6 +12,8 @@ public class GameMaster : MonoBehaviour
     public float numPlanets = 8;
     public bool randomPlanetTypes = false;
 
+    private Transform spawnPoint;
+
     // Use this for initialization
     void Start () {
         if (gm == null) {
@@ -45,21 +47,19 @@ public class GameMaster : MonoBehaviour
             else
                 Instantiate(planetPrefabs[type], pos, Quaternion.identity);
         }
+        spawnPoint = homePlanet.GetChild(2).transform;
     }
-    
+
     public void SpawnPlayer () {
-        float spawnOffset = homePlanet.GetComponent<CircleCollider2D>().radius;
-        Debug.Log("Spawn");
-		Instantiate (playerPrefab, homePlanet.position + new Vector3(0, spawnOffset + 5, 0), Quaternion.identity);
+		Instantiate (playerPrefab, spawnPoint.position + (spawnPoint.position - homePlanet.position).normalized * 5, spawnPoint.rotation);
 	}
     
 	public IEnumerator RespawnPlayer () {
 		yield return new WaitForSeconds (respawnTime);
-        
-        float spawnOffset = homePlanet.GetComponent<CircleCollider2D>().radius;
-		Instantiate (playerPrefab, homePlanet.position + new Vector3(0, spawnOffset + 5, 0), Quaternion.identity);
-	}
-    
+        Instantiate(playerPrefab, spawnPoint.position + (spawnPoint.position - homePlanet.position).normalized * 5, spawnPoint.rotation);
+
+    }
+
     public static void KillPlayer (GameObject player) {
         Transform explosion = Instantiate(gm.explosionEffect, player.transform.position, player.transform.rotation) as Transform;
         explosion.GetComponent<Renderer>().sortingLayerName = "Foreground";

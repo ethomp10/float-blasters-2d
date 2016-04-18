@@ -20,7 +20,6 @@ public class FuelPad : MonoBehaviour {
 	
 	void OnTriggerEnter2D (Collider2D spaceship) {
         if (spaceship.gameObject.tag == "Player") {
-			Debug.Log("Fuel!");
 			anim.SetBool("poweredOn", true);
 			poweredOn = true;
         }
@@ -28,7 +27,6 @@ public class FuelPad : MonoBehaviour {
 	
 	void OnTriggerExit2D (Collider2D spaceship) {
         if (spaceship.gameObject.tag == "Player") {
-			// Debug.Log("Fuel!");
 			anim.SetBool("poweredOn", false);
 			poweredOn = false;
         }

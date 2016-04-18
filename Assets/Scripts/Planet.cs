@@ -22,9 +22,8 @@ public class Planet : MonoBehaviour {
         gravity = radius * 30;
         star = GameObject.FindGameObjectWithTag("Star").transform;
         orbitSpeed = 100000 / transform.position.magnitude;
-        Debug.Log(transform.name + ": " + orbitSpeed);
     }
-    
+
     void Update () {
         if (ship != null) {
             relativeVelocity = ShipControl.velocity - GetComponent<Rigidbody2D>().velocity.magnitude;
