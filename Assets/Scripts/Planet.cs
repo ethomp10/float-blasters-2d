@@ -3,62 +3,65 @@ using UnityEngine.UI;
 
 public class Planet : MonoBehaviour {
     
-    public Transform star;
-    public Transform ship;
-    public Rigidbody2D shipRB;
     public Text distanceMeter;
     public RectTransform compas;
-    
     public float atmosphere;
-    public float orbitSpeed;
-    
+
+    private Transform star;
+    private Transform ship;
+    private Rigidbody2D shipRB;
     private float radius;
     private float gravity;
-    private float distance;
+    private float distanceToPlayer;
+    private float orbitSpeed;
     private float zoomFactor;
-    
     private float relativeVelocity;
 	
     void Start () {
         radius = GetComponent<CircleCollider2D>().radius;
         gravity = radius * 30;
-        // Debug.Log(gameObject.transform.name + " | Radius: " + radius + " | Gravity: " + gravity);
+        star = GameObject.FindGameObjectWithTag("Star").transform;
+        orbitSpeed = 100000 / transform.position.magnitude;
+        Debug.Log(transform.name + ": " + orbitSpeed);
     }
     
     void Update () {
         if (ship != null) {
             relativeVelocity = ShipControl.velocity - GetComponent<Rigidbody2D>().velocity.magnitude;
-            distance = (transform.position - ship.position).magnitude - radius - 1;
+            distanceToPlayer = (transform.position - ship.position).magnitude - radius - 1;
             Debug.DrawLine(transform.position, ship.position, Color.blue);
             
             Vector2 direction = (ship.transform.position - transform.position);
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg + 90;
             
-            compas.Rotate(new Vector3(0, 0, angle));
-            compas.rotation = Quaternion.Euler(0, 0, angle);
-            
-            distanceMeter.text = (gameObject.transform.name + ": " + Mathf.Round(distance) + " space bits");
+            // Compas stuff
+            if (compas != null) {
+                compas.Rotate(new Vector3(0, 0, angle));
+                compas.rotation = Quaternion.Euler(0, 0, angle);
+            }
+            if (distanceMeter != null)
+                distanceMeter.text = (gameObject.transform.name + ": " + Mathf.Round(distanceToPlayer) + " space bits");
         }
     }
     
 	void FixedUpdate () {
         if (ship != null) {
 
-            distance = (transform.position - ship.position).magnitude;
+            distanceToPlayer = (transform.position - ship.position).magnitude;
             // Gravity effect on player
-            shipRB.AddForce((transform.position - ship.position).normalized * gravity / distance);
+            shipRB.AddForce((transform.position - ship.position).normalized * gravity / distanceToPlayer);
             
             // Calculate camera size based on player distance to surface
-            if ((distance - radius) < 100)
-                zoomFactor = distance - radius + 10;
+            if ((distanceToPlayer - radius) < 100)
+                zoomFactor = distanceToPlayer - radius + 10;
             else
                 zoomFactor = 100;
             
             // Atmosphere
-            if ((distance - radius) <= atmosphere) {
+            if ((distanceToPlayer - radius) <= atmosphere) {
                 // Follow planet's orbit around sun
                 if (star != null && ship != null)
-                    ship.RotateAround(star.position, Vector3.forward, orbitSpeed / 100 * Time.deltaTime);
+                    ship.RotateAround(star.position, Vector3.back, orbitSpeed / 100 * Time.fixedDeltaTime);
                 
                 // Camera zoom
                 Camera.main.orthographicSize = Mathf.Lerp(Camera.main.orthographicSize, zoomFactor, Time.fixedDeltaTime);
@@ -69,7 +72,7 @@ public class Planet : MonoBehaviour {
         
         // Orbit around sun
         if (star != null)
-            transform.RotateAround(star.position, Vector3.forward, orbitSpeed / 100 * Time.fixedDeltaTime);
+            transform.RotateAround(star.position, Vector3.back, orbitSpeed / 100 * Time.fixedDeltaTime);
     }
     
     void OnCollisionEnter2D (Collision2D spaceship) {

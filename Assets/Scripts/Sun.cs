@@ -2,11 +2,12 @@
 
 public class Sun : MonoBehaviour {
     
-    public Transform ship;
+    
     public Transform explosionEffect;
-    public Rigidbody2D shipRB;
     public float atmosphere;
-
+    
+    private Transform ship;
+    private Rigidbody2D shipRB;
     private float distance;
     private float radius;
     private float gravity;
@@ -15,6 +16,9 @@ public class Sun : MonoBehaviour {
     void Start () {
         radius = GetComponent<CircleCollider2D>().radius;
         gravity = radius * 100;
+        
+        // ship = GameObject.FindGameObjectWithTag("Player").transform;
+        // shipRB = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>();
     }
     
 	void FixedUpdate () {
