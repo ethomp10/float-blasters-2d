@@ -2,7 +2,6 @@
 
 public class ShipControl : MonoBehaviour {
 
-    public Rigidbody2D playerShip;
     public uint shipThrust;
     public uint rotationSpeed;
 
@@ -10,18 +9,19 @@ public class ShipControl : MonoBehaviour {
     public static float yPos;
     public static float velocity;
 
-    private Vector3 lastPosition;
+    private Rigidbody2D playerShip;
+    private Animator anim;
 
-    Animator anim;
 
     // Use this for initialization
     void Start () {
         anim = GetComponent<Animator>();
+        playerShip = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
     void FixedUpdate() {
-        velocity = GetComponent<Rigidbody2D>().velocity.magnitude;
+        velocity = playerShip.velocity.magnitude;
         xPos = transform.position.x;
         yPos = transform.position.y;
         
