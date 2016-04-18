@@ -35,7 +35,6 @@ public class GameMaster : MonoBehaviour
                     type = 0;
                 }
             }
-            Debug.Log(i);
             do {
                 pos = new Vector3 (Random.Range(-planetSpacing * (i+1), planetSpacing * (i+1)),
                     Random.Range(-planetSpacing * (i+1), planetSpacing * (i+1)), 0);

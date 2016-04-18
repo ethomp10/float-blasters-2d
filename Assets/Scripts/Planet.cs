@@ -5,35 +5,30 @@ public class Planet : MonoBehaviour {
     
     public Text distanceMeter;
     public RectTransform compas;
-    
     public float atmosphere;
-    public float orbitSpeed;
-    
+
     private Transform star;
     private Transform ship;
     private Rigidbody2D shipRB;
     private float radius;
     private float gravity;
-    private float distance;
+    private float distanceToPlayer;
+    private float orbitSpeed;
     private float zoomFactor;
-    
     private float relativeVelocity;
 	
     void Start () {
         radius = GetComponent<CircleCollider2D>().radius;
         gravity = radius * 30;
-        
         star = GameObject.FindGameObjectWithTag("Star").transform;
-        // ship = GameObject.FindGameObjectWithTag("Player").transform;
-        // shipRB = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>();
-        
-        // Debug.Log(gameObject.transform.name + " | Radius: " + radius + " | Gravity: " + gravity);
+        orbitSpeed = 100000 / transform.position.magnitude;
+        Debug.Log(transform.name + ": " + orbitSpeed);
     }
     
     void Update () {
         if (ship != null) {
             relativeVelocity = ShipControl.velocity - GetComponent<Rigidbody2D>().velocity.magnitude;
-            distance = (transform.position - ship.position).magnitude - radius - 1;
+            distanceToPlayer = (transform.position - ship.position).magnitude - radius - 1;
             Debug.DrawLine(transform.position, ship.position, Color.blue);
             
             Vector2 direction = (ship.transform.position - transform.position);
@@ -45,25 +40,25 @@ public class Planet : MonoBehaviour {
                 compas.rotation = Quaternion.Euler(0, 0, angle);
             }
             if (distanceMeter != null)
-                distanceMeter.text = (gameObject.transform.name + ": " + Mathf.Round(distance) + " space bits");
+                distanceMeter.text = (gameObject.transform.name + ": " + Mathf.Round(distanceToPlayer) + " space bits");
         }
     }
     
 	void FixedUpdate () {
         if (ship != null) {
 
-            distance = (transform.position - ship.position).magnitude;
+            distanceToPlayer = (transform.position - ship.position).magnitude;
             // Gravity effect on player
-            shipRB.AddForce((transform.position - ship.position).normalized * gravity / distance);
+            shipRB.AddForce((transform.position - ship.position).normalized * gravity / distanceToPlayer);
             
             // Calculate camera size based on player distance to surface
-            if ((distance - radius) < 100)
-                zoomFactor = distance - radius + 10;
+            if ((distanceToPlayer - radius) < 100)
+                zoomFactor = distanceToPlayer - radius + 10;
             else
                 zoomFactor = 100;
             
             // Atmosphere
-            if ((distance - radius) <= atmosphere) {
+            if ((distanceToPlayer - radius) <= atmosphere) {
                 // Follow planet's orbit around sun
                 if (star != null && ship != null)
                     ship.RotateAround(star.position, Vector3.back, orbitSpeed / 100 * Time.fixedDeltaTime);
