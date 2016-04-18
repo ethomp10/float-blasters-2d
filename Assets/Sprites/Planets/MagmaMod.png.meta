@@ -1,10 +1,9 @@
 fileFormatVersion: 2
-guid: de2e7a1095b728149b4e823d506ec0af
-timeCreated: 1460544275
+guid: 7bef3418dfc5941b79154f8489cee46a
+timeCreated: 1460941869
 licenseType: Free
 TextureImporter:
-  fileIDToRecycleName:
-    21300000: Planet1_0
+  fileIDToRecycleName: {}
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -24,14 +23,14 @@ TextureImporter:
   grayScaleToAlpha: 0
   generateCubemap: 0
   cubemapConvolution: 0
-  cubemapConvolutionSteps: 8
+  cubemapConvolutionSteps: 7
   cubemapConvolutionExponent: 1.5
   seamlessCubemap: 0
   textureFormat: -1
-  maxTextureSize: 512
+  maxTextureSize: 2048
   textureSettings:
-    filterMode: 0
-    aniso: 16
+    filterMode: -1
+    aniso: -1
     mipBias: -1
     wrapMode: 1
   nPOTScale: 0
@@ -39,34 +38,18 @@ TextureImporter:
   rGBM: 0
   compressionQuality: 50
   allowsAlphaSplitting: 0
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spritePixelsToUnits: 10
+  spritePixelsToUnits: 100
   alphaIsTransparency: 1
   textureType: 8
   buildTargetSettings: []
   spriteSheet:
-    sprites:
-    - name: Planet1_0
-      rect:
-        serializedVersion: 2
-        x: 4
-        y: 4
-        width: 492
-        height: 492
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -27.488, y: -31.488}
-        - {x: 32.512, y: -31.488}
-        - {x: 32.512, y: 32.512}
-        - {x: -31.488, y: 32.512}
-        - {x: -31.488, y: -29.488}
+    sprites: []
     outline: []
   spritePackingTag: 
   userData: 
