@@ -45,7 +45,6 @@ public class Planet : MonoBehaviour {
     
 	void FixedUpdate () {
         if (ship != null) {
-
             distanceToPlayer = (transform.position - ship.position).magnitude;
             // Gravity effect on player
             shipRB.AddForce((transform.position - ship.position).normalized * gravity / distanceToPlayer);
