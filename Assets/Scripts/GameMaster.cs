@@ -6,13 +6,13 @@ public class GameMaster : MonoBehaviour
     public static GameMaster gm;
     public Transform[] planetPrefabs;
     public Transform playerPrefab;
-    public Transform homePlanet;
     public Transform explosionEffect;
     public float respawnTime = 3;
     public float numPlanets = 8;
     public bool randomPlanetTypes = false;
 
     private Transform spawnPoint;
+    private Transform homePlanet;
 
     // Use this for initialization
     void Start () {
@@ -45,18 +45,18 @@ public class GameMaster : MonoBehaviour
             if (i == 1)
                 homePlanet = Instantiate(planetPrefabs[type], pos, Quaternion.identity) as Transform; 
             else
-                Instantiate(planetPrefabs[type], pos, Quaternion.identity);
+                Instantiate(planetPrefabs[type], pos, Quaternion.Euler(0, 0, Random.Range(0, 359)));
         }
-        spawnPoint = homePlanet.GetChild(2).transform;
+        spawnPoint = homePlanet.GetChild(3).transform;
     }
 
     public void SpawnPlayer () {
-		Instantiate (playerPrefab, spawnPoint.position + (spawnPoint.position - homePlanet.position).normalized * 5, spawnPoint.rotation);
+		Instantiate (playerPrefab, spawnPoint.position, spawnPoint.rotation);
 	}
     
 	public IEnumerator RespawnPlayer () {
 		yield return new WaitForSeconds (respawnTime);
-        Instantiate(playerPrefab, spawnPoint.position + (spawnPoint.position - homePlanet.position).normalized * 5, spawnPoint.rotation);
+        Instantiate(playerPrefab, spawnPoint.position, spawnPoint.rotation);
 
     }
 
