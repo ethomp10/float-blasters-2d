@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class FuelPad : MonoBehaviour {
 	
@@ -10,12 +9,7 @@ public class FuelPad : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		anim = GetComponent<Animator>();
-		player = GameObject.FindGameObjectWithTag("Player").transform;
-	}
-	
-	// Update is called once per frame
-	void Update () {
-
+        //player = GameObject.FindGameObjectWithTag("Player").transform;
 	}
 	
 	void OnTriggerEnter2D (Collider2D spaceship) {
