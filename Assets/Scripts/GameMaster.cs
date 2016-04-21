@@ -6,13 +6,13 @@ public class GameMaster : MonoBehaviour
     public static GameMaster gm;
     public Transform[] planetPrefabs;
     public Transform playerPrefab;
-    public Transform homePlanet;
     public Transform explosionEffect;
     public float respawnTime = 3;
     public float numPlanets = 8;
     public bool randomPlanetTypes = false;
 
     private Transform spawnPoint;
+    private Transform homePlanet;
 
     // Use this for initialization
     void Start () {
