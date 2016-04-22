@@ -56,7 +56,6 @@ public class GameMaster : MonoBehaviour
 
             if (i == 1) {
                 homePlanet = Instantiate(planetPrefabs[type], pos, Quaternion.identity) as Transform;
-                //GameMaster.KillPlayer(spaceship.gameObject);
                 pScript = homePlanet.GetComponent<Planet>();
                 pScript.NamePlanet(planetNames[i]);
                 pScript.GetCompass(i);

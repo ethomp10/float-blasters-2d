@@ -4,13 +4,17 @@ public class FuelPad : MonoBehaviour {
 	
 	private Animator anim;
 	private bool poweredOn = false;
-	private Transform player;
 
 	// Use this for initialization
 	void Start () {
 		anim = GetComponent<Animator>();
-        //player = GameObject.FindGameObjectWithTag("Player").transform;
-	}
+    }
+
+    void Update () {
+        if (poweredOn) {
+            ShipControl.fuel += 10;
+        }
+    }
 	
 	void OnTriggerEnter2D (Collider2D spaceship) {
         if (spaceship.gameObject.tag == "Player") {
