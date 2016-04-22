@@ -25,6 +25,8 @@ public class GameMaster : MonoBehaviour
         }
         SpawnPlanets();
         SpawnPlayer();
+        
+        Cursor.visible = false;
     }
     
     public void SpawnPlanets() {
