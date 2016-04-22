@@ -1,22 +1,21 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class FuelPad : MonoBehaviour {
 	
+    private int refuelRate = 10;
 	private Animator anim;
 	private bool poweredOn = false;
-	private Transform player;
 
 	// Use this for initialization
 	void Start () {
 		anim = GetComponent<Animator>();
-		player = GameObject.FindGameObjectWithTag("Player").transform;
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    }
 
-	}
+    void FixedUpdate () {
+        if (poweredOn) {
+            ShipControl.fuel += refuelRate;
+        }
+    }
 	
 	void OnTriggerEnter2D (Collider2D spaceship) {
         if (spaceship.gameObject.tag == "Player") {

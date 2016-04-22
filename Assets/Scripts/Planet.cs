@@ -2,28 +2,27 @@
 using UnityEngine.UI;
 
 public class Planet : MonoBehaviour {
-    
-    public RectTransform gpsPrefab;
+
     public float atmosphere;
 
     private Transform star;
     private Transform ship;
     private Rigidbody2D shipRB;
+    private RectTransform compass;
+
     private float radius;
     private float gravity;
     private float distanceToPlayer;
     private float orbitSpeed;
     private float zoomFactor;
     private float relativeVelocity;
-	
+    private string planetName;
+
     void Start () {
         radius = GetComponent<CircleCollider2D>().radius;
         gravity = radius * 30;
         star = GameObject.FindGameObjectWithTag("Star").transform;
         orbitSpeed = 100000 / transform.position.magnitude;
-        // gpsPrefab = Instantiate(gpsPrefab, gpsPrefab.position, gpsPrefab.rotation) as RectTransform;
-        // gpsPrefab.SetParent(GameObject.Find("Canvas").transform);
-        // compas = gpsPrefab.GetChild(0).GetComponent<RectTransform>();
     }
 
     void Update () {
@@ -36,10 +35,9 @@ public class Planet : MonoBehaviour {
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg + 90;
             
             // Compas stuff
-            if (gpsPrefab != null) {
-                gpsPrefab.GetChild(0).Rotate(new Vector3(0, 0, angle));
-                gpsPrefab.GetChild(0).rotation = Quaternion.Euler(0, 0, angle);
-                gpsPrefab.GetComponent<Text>().text = (gameObject.transform.name + ": " + Mathf.Round(distanceToPlayer) + " space bits");
+            if (compass != null) {
+                compass.GetChild(0).rotation = Quaternion.Euler(0, 0, angle);
+                compass.GetComponent<Text>().text = (planetName + ": " + Mathf.Round(distanceToPlayer) + " space bits");
             }
         }
     }
@@ -89,5 +87,16 @@ public class Planet : MonoBehaviour {
             ship = player.transform;
             shipRB = player.GetComponent<Rigidbody2D>();
         }
+    }
+
+    public void GetCompass(int planetNum)
+    {
+        string gpsName = string.Format("PlanetGPS{0}", planetNum);
+        compass = GameObject.Find(gpsName).GetComponent<RectTransform>();
+    }
+
+    public void NamePlanet(string name)
+    {
+        planetName = name;
     }
 }
