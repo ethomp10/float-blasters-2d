@@ -11,7 +11,7 @@ public class GameMaster : MonoBehaviour
     public float numPlanets = 8;
     public bool randomPlanetTypes = false;
 
-    private string[] planetNames = { "Kornax", "Home", "Nebrol", "Hath" };
+    private string[] planetNames = { "Kornax", "Khatt-6", "Nebrol", "Hath" };
 
     private Transform spawnPoint;
     private Transform tempPlanet;

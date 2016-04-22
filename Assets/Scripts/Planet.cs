@@ -92,7 +92,7 @@ public class Planet : MonoBehaviour {
     public void GetCompass(int planetNum)
     {
         string gpsName = string.Format("PlanetGPS{0}", planetNum);
-        Debug.Log(gpsName);
+        //Debug.Log(gpsName);
         compass = GameObject.Find(gpsName).GetComponent<RectTransform>();
     }
 
