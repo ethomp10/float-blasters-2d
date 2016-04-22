@@ -2,6 +2,7 @@
 
 public class FuelPad : MonoBehaviour {
 	
+    private int refuelRate = 10;
 	private Animator anim;
 	private bool poweredOn = false;
 
@@ -10,9 +11,9 @@ public class FuelPad : MonoBehaviour {
 		anim = GetComponent<Animator>();
     }
 
-    void Update () {
+    void FixedUpdate () {
         if (poweredOn) {
-            ShipControl.fuel += 10;
+            ShipControl.fuel += refuelRate;
         }
     }
 	
