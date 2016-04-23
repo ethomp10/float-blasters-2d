@@ -34,7 +34,6 @@ public class ShipControl : MonoBehaviour {
         firePoints = new Transform[numGuns];
         for (int i = 0; i < numGuns; i++) {
             fpName = string.Format("FirePoint{0}", i);
-            Debug.Log(i + ": " + fpName);
             firePoints[i] = transform.FindChild(fpName);
         }
     }
@@ -112,7 +111,7 @@ public class ShipControl : MonoBehaviour {
             lr.SetPosition(0, firePoint.position);
             lr.SetPosition(1, hitPos);
         }
-        Destroy(trail.gameObject, 0.1f);
+        Destroy(trail.gameObject, 0.02f);
         
         // if (hitNormal != new Vector3(9999, 9999, 9999)) {
         //     Transform particle = Instantiate(hitParticles, hitPos, Quaternion.FromToRotation(Vector3.right, hitNormal)) as Transform;
