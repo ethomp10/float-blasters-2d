@@ -106,6 +106,7 @@ public class ShipControl : MonoBehaviour {
     void Effect (Vector3 hitPos, Transform firePoint) {
         Transform trail = Instantiate (laserBeam, firePoint.position, firePoint.rotation) as Transform;
         LineRenderer lr = trail.GetComponent<LineRenderer>();
+        lr.sortingLayerName = "Background";
         
         if (lr != null) {
             lr.SetPosition(0, firePoint.position);
