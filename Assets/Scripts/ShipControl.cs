@@ -28,7 +28,7 @@ public class ShipControl : MonoBehaviour {
         fuelGauge = GameObject.Find("FuelGauge").GetComponent<Slider>();
         fuelGauge.maxValue = maxFuel;
         fuelIcon = fuelGauge.gameObject.transform.GetChild(3).GetComponent<Image>();;
-        fuel = 100;
+        fuel = maxFuel;
         
         string fpName;
         firePoints = new Transform[numGuns];
