@@ -2,7 +2,7 @@
 
 public class FuelPad : MonoBehaviour {
 	
-    private int refuelRate = 10;
+    private int refuelRate = 5;
 	private Animator anim;
 	private bool poweredOn = false;
 
