@@ -28,7 +28,7 @@ public class ShipControl : MonoBehaviour {
         fuelGauge = GameObject.Find("FuelGauge").GetComponent<Slider>();
         fuelGauge.maxValue = maxFuel;
         fuelIcon = fuelGauge.gameObject.transform.GetChild(3).GetComponent<Image>();;
-        fuel = maxFuel;
+        fuel = 100;
         
         string fpName;
         firePoints = new Transform[numGuns];
@@ -56,6 +56,7 @@ public class ShipControl : MonoBehaviour {
         } else
             anim.SetBool("enginesOn", false);
 
+        // Rotation
         if (Input.GetKey(KeyCode.A)) {
             transform.Rotate(Vector3.forward * rotationSpeed * 0.1f);
             playerShip.angularVelocity = 0;
@@ -65,13 +66,14 @@ public class ShipControl : MonoBehaviour {
             playerShip.angularVelocity = 0;
         }
         
-        if (fuel > maxFuel) {
+        // Fuel
+        if (fuel > maxFuel)
             fuel = maxFuel;
-        } else if (fuel <= 0) {
+        else if (fuel <= 0)
             fuelIcon.color = new Color32 (255, 255, 255, 60);
-        } else {
+        else
             fuelIcon.color = new Color32 (0, 178, 255, 255);
-        }
+
         fuelGauge.value = fuel;
     }
     
@@ -93,11 +95,10 @@ public class ShipControl : MonoBehaviour {
             }
             
             Vector3 hitPos;
-            if (hit.collider == null) {
+            if (hit.collider == null)
                 hitPos = firePoints[i].up * 1000 + firePoints[i].position;
-            } else {
+            else
                 hitPos = hit.point;
-            }
             
             Effect (hitPos, firePoints[i]);
         }
@@ -113,17 +114,5 @@ public class ShipControl : MonoBehaviour {
             lr.SetPosition(1, hitPos);
         }
         Destroy(trail.gameObject, 0.02f);
-        
-        // if (hitNormal != new Vector3(9999, 9999, 9999)) {
-        //     Transform particle = Instantiate(hitParticles, hitPos, Quaternion.FromToRotation(Vector3.right, hitNormal)) as Transform;
-        //     Destroy(particle.gameObject, 1f);
-        // }
-        
-        // Transform clone = Instantiate (muzzleFlash, firePoint.position, firePoint.rotation) as Transform;
-        // clone.parent = firePoint;
-        // float size = Random.Range (0.6f, 0.9f);
-
-        // clone.localScale = new Vector3 (size, size, size);
-        // Destroy(clone.gameObject, 0.02f);
     }
 }

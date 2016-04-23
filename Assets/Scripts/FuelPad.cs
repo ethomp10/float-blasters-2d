@@ -12,6 +12,7 @@ public class FuelPad : MonoBehaviour {
     }
 
     void FixedUpdate () {
+        // Refuel player if ship is attached
         if (poweredOn) {
             ShipControl.fuel += refuelRate;
         }

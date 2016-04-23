@@ -38,13 +38,12 @@ public class Nyan : MonoBehaviour {
                 zoomFactor = distance + 10;
             else
                 zoomFactor = 100;
-                
-            if ((distance) <= atmosphere) {
-                // Camera zoom
+               
+            // Camera zoom 
+            if ((distance) <= atmosphere)
                 Camera.main.orthographicSize = Mathf.Lerp(Camera.main.orthographicSize, zoomFactor, Time.fixedDeltaTime);
-            }
                 
-        // Orbit around sun
+            // Orbit around sun
             if (star != null)
                 transform.RotateAround(star.position, Vector3.back, orbitSpeed / 100 * Time.fixedDeltaTime);
         }

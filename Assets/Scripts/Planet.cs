@@ -63,9 +63,8 @@ public class Planet : MonoBehaviour {
                 // Camera zoom
                 Camera.main.orthographicSize = Mathf.Lerp(Camera.main.orthographicSize, zoomFactor, Time.fixedDeltaTime);
             }
-        } else {
+        } else
             FindPlayer();
-        }
         
         // Orbit around sun
         if (star != null)

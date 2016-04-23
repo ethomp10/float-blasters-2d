@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class GameMaster : MonoBehaviour
-{
+public class GameMaster : MonoBehaviour {
+    
     public static GameMaster gm;
     public Transform[] planetPrefabs;
     public Transform playerPrefab;
@@ -34,27 +34,24 @@ public class GameMaster : MonoBehaviour
         int planetSpacing = 5000;
         Vector3 pos;
 
-        for (int i = 0; i < numPlanets; i++)
-        {
-            if (randomPlanetTypes)
-            {
+        for (int i = 0; i < numPlanets; i++) {
+            if (randomPlanetTypes) {
                 type = Random.Range(0, planetPrefabs.Length);
             }
-            else
-            {
+            else {
                 type++;
-                if (type >= planetPrefabs.Length)
-                {
+                if (type >= planetPrefabs.Length) {
                     type = 0;
                 }
             }
-            do
-            {
+            // Search for a spot that isn't too close to other planets
+            do {
                 pos = new Vector3(Random.Range(-planetSpacing * (i + 1), planetSpacing * (i + 1)),
                     Random.Range(-planetSpacing * (i + 1), planetSpacing * (i + 1)), 0);
             } while (pos.magnitude < planetSpacing * (i + 1));
 
             if (i == 1) {
+                // Make second planet from the sun home planet
                 homePlanet = Instantiate(planetPrefabs[type], pos, Quaternion.identity) as Transform;
                 pScript = homePlanet.GetComponent<Planet>();
                 pScript.NamePlanet(planetNames[i]);

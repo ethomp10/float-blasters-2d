@@ -26,8 +26,7 @@ public class OrbitLine : MonoBehaviour {
        
         float angle = 20f;
        
-        for (int i = 0; i < (segments + 1); i++)
-        {
+        for (int i = 0; i < (segments + 1); i++) {
             x = Mathf.Sin (Mathf.Deg2Rad * angle) * radius;
             y = Mathf.Cos (Mathf.Deg2Rad * angle) * radius;
                    
