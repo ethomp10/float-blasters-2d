@@ -4,7 +4,7 @@
  * Seamless support for Microsoft Visual Studio Code in Unity
  *
  * Version:
- *   2.5
+ *   2.6
  *
  * Authors:
  *   Matthew Davey <matthew.davey@dotbunny.com>
@@ -25,7 +25,7 @@ namespace dotBunny.Unity
         /// <summary>
         /// Current Version Number
         /// </summary>
-        public const float Version = 2.5f;
+        public const float Version = 2.6f;
 
         /// <summary>
         /// Current Version Code
@@ -49,7 +49,7 @@ namespace dotBunny.Unity
 #if UNITY_EDITOR_OSX
                 var newPath = "/Applications/Visual Studio Code.app";
 #elif UNITY_EDITOR_WIN
-                var newPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.LocalApplicationData) + Path.DirectorySeparatorChar + "Code" + Path.DirectorySeparatorChar + "bin" + Path.DirectorySeparatorChar + "code.cmd";
+                var newPath = ProgramFilesx86() + Path.DirectorySeparatorChar + "Microsoft VS Code" + Path.DirectorySeparatorChar + "bin" + Path.DirectorySeparatorChar + "code.cmd";
 #else
                 var newPath = "/usr/local/bin/code";
 #endif                
@@ -60,6 +60,18 @@ namespace dotBunny.Unity
                 EditorPrefs.SetString("VSCode_CodePath", value);
             }
         }
+        
+        static string ProgramFilesx86()
+		{
+			if( 8 == IntPtr.Size 
+				|| (!String.IsNullOrEmpty(Environment.GetEnvironmentVariable("PROCESSOR_ARCHITEW6432"))))
+			{
+				return Environment.GetEnvironmentVariable("ProgramFiles(x86)");
+			}
+
+			return Environment.GetEnvironmentVariable("ProgramFiles");
+		}
+		
         
         /// <summary>
         /// Should debug information be displayed in the Unity terminal?
@@ -802,7 +814,8 @@ namespace dotBunny.Unity
             // determine asset that has been double clicked in the project view
             UnityEngine.Object selected = EditorUtility.InstanceIDToObject(instanceID);
 
-            if (selected.GetType().ToString() == "UnityEditor.MonoScript")
+            if (selected.GetType().ToString() == "UnityEditor.MonoScript" ||
+                selected.GetType().ToString() == "UnityEngine.Shader")
             {
                 string completeFilepath = appPath + Path.DirectorySeparatorChar + AssetDatabase.GetAssetPath(selected);
 
